@@ -1,4 +1,5 @@
 import 'package:criptomoedas/models/moeda.dart';
+import 'package:criptomoedas/pages/moedas_detalhes_page.dart';
 import 'package:criptomoedas/repositories/moeda_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -22,7 +23,7 @@ class _MoedasPageState extends State<MoedasPage> {
     if (selecionadas.isEmpty) {
       return AppBar(
         title: const Text(
-          'Criptomedas',
+          'Criptomoedas',
           style: TextStyle(color: Colors.white),
         ),
         backgroundColor: Colors.indigo,
@@ -51,6 +52,15 @@ class _MoedasPageState extends State<MoedasPage> {
         elevation: 1,
       );
     }
+  }
+
+  mostrarDetalhes(Moeda moeda) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (_) => MoedasDetalhesPage(moeda: moeda),
+      ),
+    );
   }
 
   @override
@@ -90,6 +100,9 @@ class _MoedasPageState extends State<MoedasPage> {
                   ? selecionadas.remove(tabela[moeda])
                   : selecionadas.add(tabela[moeda]);
               setState(() {});
+            },
+            onTap: () {
+              mostrarDetalhes(tabela[moeda]);
             },
           );
         },
